@@ -1,7 +1,6 @@
 #
 # TODO:
 # - pl desc ;)
-# - fill license type
 # - add polish localization
 #
 Summary:	Tool for automatic download/upload subtitles for videofiles.
@@ -9,7 +8,7 @@ Summary(pl.UTF-8): Narzędzie do automatycznego ściągania/wysyłania podpisów
 Name:		subdownloader
 Version:	1.2.9
 Release:	0.1
-License:	???
+License:	free (see license.txt)
 Group:		X11/Applications/Games
 Source0:	http://www.vinalinux.com/projects/subdownloader/repository/sources.%{version}.zip
 # Source0-md5:	31bd12d5edc11f05f51ea43c58cfb9e4
@@ -38,7 +37,6 @@ Features:
 - Autodetect language of the subtitles and many more
 
 #%description -l pl.UTF-8
-
 
 %prep
 %setup -q -c
@@ -72,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc TODO.txt license.txt tips.txt
+%doc TODO.txt license.txt tips.txt credits.txt
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png
