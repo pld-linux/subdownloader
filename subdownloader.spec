@@ -17,6 +17,7 @@ Source1:        %{name}.desktop
 Source2:        %{name}.png
 URL:		http://trac.opensubtitles.org/projects/subdowloader/
 BuildRequires:	rpm-pythonprov
+BuildRequires:	unzip
 Requires:	python >= 2.5
 Requires:	python-mmpython
 Requires:	python-imdb
