@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=SubDownloader
+Name[en_GB]=SubDownloader
+Name[es]=SubDownloader
+Comment=Automatic download/upload subtitles for videofiles
+Comment[pl]=Automatycznie przesyłaj podpisy do plików wideo
+Exec=subdownloader $@
+Terminal=false
+Type=Application
+Icon=subdownloader.png
+Categories=GNOME;Application;AudioVideo;
