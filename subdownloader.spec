@@ -19,7 +19,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	unzip
 Requires:	python >= 2.5
 Requires:	python-mmpython
-Requires:	python-imdb
+Requires:	python-imdb >= 2.6
 Requires:	python-wxPython >= 2.8
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
