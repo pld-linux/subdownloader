@@ -1,7 +1,6 @@
 #
 # TODO:
 # - pl desc ;)
-# - add polish localization
 #
 Summary:	Tool for automatic download/upload subtitles for videofiles.
 Summary(pl.UTF-8): Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo.
@@ -14,6 +13,8 @@ Source0:	http://www.vinalinux.com/projects/subdownloader/repository/sources.%{ve
 # Source0-md5:	31bd12d5edc11f05f51ea43c58cfb9e4
 Source1:        %{name}.desktop
 Source2:        %{name}.png
+Source3:	http://starowa.one.pl/~uzi/pld/subdownloader-locale-pl.tar.gz
+Patch0:		%{name}-conf.patch
 URL:		http://trac.opensubtitles.org/projects/subdowloader/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	unzip
@@ -40,6 +41,9 @@ Features:
 
 %prep
 %setup -q -c
+%patch0 -p1
+
+tar xzf %{SOURCE3}
 
 %install
 rm -rf $RPM_BUILD_ROOT
