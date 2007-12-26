@@ -9,4 +9,5 @@ Exec=subdownloader.sh $@
 Terminal=false
 Type=Application
 Icon=subdownloader
-Categories=GNOME;Application;AudioVideo;
+Categories=GNOME;AudioVideo;
+# vi:encoding=utf-8
