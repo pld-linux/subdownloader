@@ -1,6 +1,5 @@
 [Desktop Entry]
 Version=1.0
-Encoding=UTF-8
 Name=SubDownloader
 Name[en_GB]=SubDownloader
 Name[es]=SubDownloader
@@ -9,5 +8,5 @@ Comment[pl]=Automatycznie przesyłaj podpisy do plików wideo
 Exec=subdownloader.sh $@
 Terminal=false
 Type=Application
-Icon=subdownloader.png
+Icon=subdownloader
 Categories=GNOME;Application;AudioVideo;
