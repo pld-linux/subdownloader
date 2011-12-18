@@ -12,8 +12,6 @@ Source2:	%{name}.png
 Source3:	%{name}.sh
 # site down, and was not in distfiles
 #Source:	http://starowa.one.pl/~uzi/pld/%{name}-locale-pl.tar.gz
-# seems outdated
-#Patch0: %{name}-conf.patch
 URL:		http://www.subdownloader.net/
 BuildRequires:	rpm-pythonprov
 Requires:	python >= 1:2.5
@@ -52,7 +50,6 @@ Cechy:
 
 %prep
 %setup -q
-#%patch0 -p1
 
 #tar xzf %{SOURCE3}
 
