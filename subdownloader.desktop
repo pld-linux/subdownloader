@@ -1,7 +1,6 @@
 [Desktop Entry]
 Version=1.0
 Name=SubDownloader
-Name[en_GB]=SubDownloader
 Comment=Application to download/upload subtitles of your movies.
 Comment[pl]=Automatycznie przesyłaj podpisy do plików wideo
 Exec=subdownloader
@@ -10,4 +9,4 @@ MimeType=video/avi;
 StartupNotify=false
 Terminal=false
 Type=Application
-Categories=GNOME;AudioVideo;Video;
+Categories=Qt;AudioVideo;Video;
