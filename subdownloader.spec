@@ -2,7 +2,7 @@ Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.0.14
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}-%{version}.tar.gz
@@ -15,10 +15,10 @@ Source3:	%{name}.sh
 Patch0:		always-en.patch
 URL:		http://www.subdownloader.net/
 BuildRequires:	rpm-pythonprov
+Requires:	desktop-file-utils
 Requires:	python >= 1:2.5
 Requires:	python-PyQt4
 Requires:	python-mmpython
-Requires:	shared-mime-info
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -97,10 +97,10 @@ cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%update_mime_database
+%update_desktop_database
 
 %postun
-%update_mime_database
+%update_desktop_database
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
