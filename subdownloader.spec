@@ -19,6 +19,7 @@ BuildRequires:	rpm-pythonprov
 Requires:	python >= 1:2.5
 Requires:	python-PyQt4
 Requires:	python-mmpython
+Requires:	shared-mime-info
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -85,6 +86,12 @@ cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%update_mime_database
+
+%postun
+%update_mime_database
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
