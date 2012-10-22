@@ -1,12 +1,12 @@
 Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
-Version:	2.0.14
-Release:	2
+Version:	2.0.17
+Release:	1
 License:	GPL v3
 Group:		X11/Applications/Multimedia
-Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	b60443cfcefd89b0893628b18eccae9c
+Source0:	https://launchpad.net/subdownloader/trunk/2.0.17/+download/%{name}_%{version}.orig.tar.gz
+# Source0-md5:	9a27b4508addbd40ae02902bb8b87537
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.sh
@@ -56,17 +56,16 @@ Cechy:
 #tar xzf %{SOURCE3}
 
 %{__rm} gui/images/icon32.ico
-%{__rm} gui/images_rc.py
 
 %build
-%{__make} -C gui images_rc.py
+%{__make} -C gui clean all
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir},%{_pixmapsdir},%{_mandir}/man1,%{_datadir}/locale,%{_appdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir},%{_pixmapsdir},%{_mandir}/man1,%{_localedir},%{_appdir}}
 
 cp -a cli FileManagement gui languages modules run.py $RPM_BUILD_ROOT%{_appdir}
-cp -a locale/* $RPM_BUILD_ROOT%{_datadir}/locale
+cp -a locale/* $RPM_BUILD_ROOT%{_localedir}
 install -p %{SOURCE3} $RPM_BUILD_ROOT%{_bindir}/%{name}
 cp -p subdownloader.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
@@ -81,11 +80,11 @@ cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 %{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/*.ui
 
 # duplicate with es
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/es_ES
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/es_ES
 # duplicate with pt
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/pt_PT
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/locale/subdownloader.pot
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/subdownloader.po
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_PT
+%{__rm} $RPM_BUILD_ROOT%{_localedir}/subdownloader.pot
+%{__rm} $RPM_BUILD_ROOT%{_localedir}/*/LC_MESSAGES/subdownloader.po
 
 %find_lang %{name}
 
