@@ -1,12 +1,12 @@
 Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
-Version:	2.0.17
+Version:	2.0.18
 Release:	1
 License:	GPL v3
 Group:		X11/Applications/Multimedia
-Source0:	https://launchpad.net/subdownloader/trunk/2.0.17/+download/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	9a27b4508addbd40ae02902bb8b87537
+Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
+# Source0-md5:	11dbc455f542b68e96e2cc539deb3f8f
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.sh
@@ -32,8 +32,8 @@ Features:
 - no spyware, no adware, source code is available
 - it uses fast hashing algorithm (27 GB movies/7 seconds)
 - recursively folders search
-- Autodetect language of the subtitles
-- Upload entire series seasons' subtitles in less than 1 minute
+- autodetect language of the subtitles
+- upload entire series seasons' subtitles in less than 1 minute
 - and many more
 
 %description -l pl.UTF-8
