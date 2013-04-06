@@ -2,7 +2,7 @@ Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.0.18
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
@@ -57,8 +57,12 @@ Cechy:
 
 %{__rm} gui/images/icon32.ico
 
+# cleanup backups after patching
+find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
+
 %build
-%{__make} -C gui clean all
+%{__make} -C gui clean
+%{__make} -C gui all
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -106,12 +110,27 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog README
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/*.1*
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png
+
 %dir %{_appdir}
 %{_appdir}/*.py[co]
 %{_appdir}/FileManagement
 %{_appdir}/cli
-%{_appdir}/gui
 %{_appdir}/modules
 %{_appdir}/languages
-%{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/%{name}.png
+
+%dir %{_appdir}/gui
+%{_appdir}/gui/*[^_][^u][^i].py[co]
+%{_appdir}/gui/about.py[co]
+
+# generated resources.
+# be sure to list them, otherwise we end up broken package again
+%{_appdir}/gui/about_ui.py[co]
+%{_appdir}/gui/chooseLanguage_ui.py[co]
+%{_appdir}/gui/expiration_ui.py[co]
+%{_appdir}/gui/images_rc.py[co]
+%{_appdir}/gui/imdb_ui.py[co]
+%{_appdir}/gui/login_ui.py[co]
+%{_appdir}/gui/main_ui.py[co]
+%{_appdir}/gui/preferences_ui.py[co]
