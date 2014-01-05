@@ -9,6 +9,7 @@ Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_
 # Source0-md5:	11dbc455f542b68e96e2cc539deb3f8f
 Source1:	%{name}.desktop
 Source2:	%{name}.png
+# Source2-md5:	de3d0cfa08b1572878cde6e3800205fa
 Source3:	%{name}.sh
 # site down, and was not in distfiles
 #Source:	http://starowa.one.pl/~uzi/pld/%{name}-locale-pl.tar.gz
