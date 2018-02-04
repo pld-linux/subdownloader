@@ -1,5 +1,5 @@
---- subdownloader-2.0.19/gui/main.py~	2017-02-13 20:10:12.000000000 +0200
-+++ subdownloader-2.0.19/gui/main.py	2018-02-04 13:09:27.174853433 +0200
+--- subdownloader-2.0.19/subdownloader/client/gui/main.py~	2017-02-13 20:10:12.000000000 +0200
++++ subdownloader-2.0.19/subdownloader/client/gui/main.py	2018-02-04 13:09:27.174853433 +0200
 @@ -371,6 +371,8 @@
              if 'subdownloader.mo' in files:
                  self.interface_langs.append(_lang)

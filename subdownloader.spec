@@ -1,14 +1,16 @@
-%global commit 2cb0ffbb
+%global commit df8427e
+%define		module		subdownloader
+%define		egg_name	SubDownloader
 Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.0.19
-Release:	0.1
+Release:	0.3
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 #Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
 Source0:	https://github.com/subdownloader/subdownloader/archive/%{commit}/%{name}-%{version}-%{commit}.tar.gz
-# Source0-md5:	866b4ab1a2ed1c4670e29c7abdbae6b3
+# Source0-md5:	50efbf629daefd04bd261a4d8f0d2346
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 # Source2-md5:	de3d0cfa08b1572878cde6e3800205fa
@@ -17,14 +19,16 @@ Source3:	%{name}.sh
 #Source:	http://starowa.one.pl/~uzi/pld/%{name}-locale-pl.tar.gz
 Patch0:		always-en.patch
 URL:		http://www.subdownloader.net/
-BuildRequires:	python-PyQt5
-BuildRequires:	python-PyQt5-devel-tools
-BuildRequires:	python-PyQt5-uic
+BuildRequires:	python3 >= 1:3.4
+BuildRequires:	python3-PyQt5
+#BuildRequires:	python3-PyQt5-devel-tools
+BuildRequires:	python3-PyQt5-uic
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.714
 Requires:	desktop-file-utils
-Requires:	python >= 1:2.5
-Requires:	python-PyQt5
-Requires:	python-mmpython
+#Requires:	python-mmpython
+Requires:	python3-PyQt5
+Requires:	python3-pymediainfo
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -58,21 +62,24 @@ Cechy:
 %prep
 %setup -qc
 mv subdownloader-%{commit}*/* .
-%patch0 -p1
+#%patch0 -p1
 
 #tar xzf %{SOURCE3}
 
-%{__rm} gui/images/icon32.ico
+%{__rm} scripts/gui/rc/images/icon32.ico
 
 # cleanup backups after patching
 find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
 %build
-%{__make} -C gui clean
-%{__make} -C gui all
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%py3_install
+
+%{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/tests
+%if 0
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir},%{_pixmapsdir},%{_mandir}/man1,%{_localedir},%{_appdir}}
 
 cp -a cli FileManagement gui languages modules run.py $RPM_BUILD_ROOT%{_appdir}
@@ -83,25 +90,29 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %{__rm} $RPM_BUILD_ROOT%{_appdir}/gui/Makefile
-#%{__rm} $RPM_BUILD_ROOT%{_appdir}/gui/Qt2Po.py
 # images bundled into images_rc.py
 %{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/images
 %{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/images.qrc
-# _ui.py via pyuic4
+# _ui.py via pyuic5
 %{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/*.ui
+%endif
 
+%define	_localedir %{py3_sitescriptdir}/subdownloader/client/locale
 # duplicate with es
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/es_ES
+#%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/es_ES
 # duplicate with pt
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_PT
-%{__rm} $RPM_BUILD_ROOT%{_localedir}/subdownloader.pot
-%{__rm} $RPM_BUILD_ROOT%{_localedir}/*/LC_MESSAGES/subdownloader.po
+#%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_PT
+%{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/subdownloader/client/locale/subdownloader.pot
+%{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/subdownloader/client/locale/*/subdownloader.po
 
-%find_lang %{name}
+#%find_lang %{name}
 
+touch %{name}.lang
+%if 0
 %py_comp $RPM_BUILD_ROOT%{_appdir}
 %py_ocomp $RPM_BUILD_ROOT%{_appdir}
 %py_postclean %{_appdir}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -116,28 +127,22 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc ChangeLog README.md
 %attr(755,root,root) %{_bindir}/%{name}
+%if 0
 %{_mandir}/man1/*.1*
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png
+%endif
 
-%dir %{_appdir}
-%{_appdir}/*.py[co]
-%{_appdir}/FileManagement
-%{_appdir}/cli
-%{_appdir}/modules
-%{_appdir}/languages
-
-%dir %{_appdir}/gui
-%{_appdir}/gui/*[^_][^u][^i].py[co]
-%{_appdir}/gui/about.py[co]
-
-# generated resources.
-# be sure to list them, otherwise we end up broken package again
-%{_appdir}/gui/about_ui.py[co]
-%{_appdir}/gui/chooseLanguage_ui.py[co]
-#%{_appdir}/gui/expiration_ui.py[co]
-%{_appdir}/gui/images_rc.py[co]
-%{_appdir}/gui/imdb_ui.py[co]
-%{_appdir}/gui/login_ui.py[co]
-%{_appdir}/gui/main_ui.py[co]
-%{_appdir}/gui/preferences_ui.py[co]
+%dir %{py3_sitescriptdir}/%{module}
+%{py3_sitescriptdir}/%{module}/*.py
+%{py3_sitescriptdir}/%{module}/__pycache__
+%dir %{py3_sitescriptdir}/%{module}/client
+%{py3_sitescriptdir}/%{module}/client/*.py
+%{py3_sitescriptdir}/%{module}/client/__pycache__
+%{py3_sitescriptdir}/%{module}/client/cli
+%{py3_sitescriptdir}/%{module}/client/gui
+%{py3_sitescriptdir}/%{module}/client/locale
+%{py3_sitescriptdir}/%{module}/client/modules
+%{py3_sitescriptdir}/%{module}/languages
+%{py3_sitescriptdir}/%{module}/provider
+%{py3_sitescriptdir}/%{egg_name}-%{version}-py*.egg-info
