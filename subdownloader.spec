@@ -5,7 +5,7 @@ Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.0.19
-Release:	0.4
+Release:	0.6
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 #Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
@@ -34,6 +34,7 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_appdir	%{_datadir}/%{name}
+%define		_localedir %{py3_sitescriptdir}/subdownloader/client/locale
 
 %description
 SubDownloader is a program for automatic download/upload subtitles for
@@ -81,40 +82,14 @@ rm -rf $RPM_BUILD_ROOT
 %py3_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/tests
-%if 0
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir},%{_pixmapsdir},%{_mandir}/man1,%{_localedir},%{_appdir}}
-
-cp -a cli FileManagement gui languages modules run.py $RPM_BUILD_ROOT%{_appdir}
-cp -a locale/* $RPM_BUILD_ROOT%{_localedir}
-install -p %{SOURCE3} $RPM_BUILD_ROOT%{_bindir}/%{name}
 cp -p subdownloader.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
-%{__rm} $RPM_BUILD_ROOT%{_appdir}/gui/Makefile
-# images bundled into images_rc.py
-%{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/images
-%{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/images.qrc
-# _ui.py via pyuic5
-%{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/*.ui
-%endif
-
-%define	_localedir %{py3_sitescriptdir}/subdownloader/client/locale
-# duplicate with es
-#%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/es_ES
-# duplicate with pt
-#%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_PT
 %{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/subdownloader/client/locale/subdownloader.pot
 %{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/subdownloader/client/locale/*/subdownloader.po
 
-#%find_lang %{name}
-
-touch %{name}.lang
-%if 0
-%py_comp $RPM_BUILD_ROOT%{_appdir}
-%py_ocomp $RPM_BUILD_ROOT%{_appdir}
-%py_postclean %{_appdir}
-%endif
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
