@@ -1,7 +1,10 @@
---- subdownloader-2.0.19/setup.py~	2017-08-10 16:14:53.000000000 +0300
-+++ subdownloader-2.0.19/setup.py	2018-02-04 14:59:47.518401343 +0200
-@@ -19,7 +19,6 @@
-     "argparse >= 1.3.0",
+--- subdownloader-2.0.19/setup.py	2018-02-04 14:59:47.518401343 +0200
++++ subdownloader-2.0.19/setup.py	2018-02-04 16:07:56.346787019 +0200
+@@ -16,10 +16,8 @@
+     return open(os.path.join(project_path, filename)).read()
+ 
+ install_requires = [
+-    "argparse >= 1.3.0",
      "argcomplete >= 1.7.0",
      "langdetect >= 1.0.7",
 -    "pyqt5 >= 5.0.0",
