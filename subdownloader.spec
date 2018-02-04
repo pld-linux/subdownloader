@@ -1,12 +1,14 @@
+%global commit 2cb0ffbb
 Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
-Version:	2.0.18
-Release:	2
+Version:	2.0.19
+Release:	0.1
 License:	GPL v3
 Group:		X11/Applications/Multimedia
-Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	11dbc455f542b68e96e2cc539deb3f8f
+#Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
+Source0:	https://github.com/subdownloader/subdownloader/archive/%{commit}/%{name}-%{version}-%{commit}.tar.gz
+# Source0-md5:	866b4ab1a2ed1c4670e29c7abdbae6b3
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 # Source2-md5:	de3d0cfa08b1572878cde6e3800205fa
@@ -15,10 +17,13 @@ Source3:	%{name}.sh
 #Source:	http://starowa.one.pl/~uzi/pld/%{name}-locale-pl.tar.gz
 Patch0:		always-en.patch
 URL:		http://www.subdownloader.net/
+BuildRequires:	python-PyQt5
+BuildRequires:	python-PyQt5-devel-tools
+BuildRequires:	python-PyQt5-uic
 BuildRequires:	rpm-pythonprov
 Requires:	desktop-file-utils
 Requires:	python >= 1:2.5
-Requires:	python-PyQt4
+Requires:	python-PyQt5
 Requires:	python-mmpython
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -51,7 +56,8 @@ Cechy:
 - i wiele więcej
 
 %prep
-%setup -q
+%setup -qc
+mv subdownloader-%{commit}*/* .
 %patch0 -p1
 
 #tar xzf %{SOURCE3}
@@ -77,7 +83,7 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %{__rm} $RPM_BUILD_ROOT%{_appdir}/gui/Makefile
-%{__rm} $RPM_BUILD_ROOT%{_appdir}/gui/Qt2Po.py
+#%{__rm} $RPM_BUILD_ROOT%{_appdir}/gui/Qt2Po.py
 # images bundled into images_rc.py
 %{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/images
 %{__rm} -r $RPM_BUILD_ROOT%{_appdir}/gui/images.qrc
@@ -108,7 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc ChangeLog README
+%doc ChangeLog README.md
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/*.1*
 %{_desktopdir}/%{name}.desktop
@@ -129,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 # be sure to list them, otherwise we end up broken package again
 %{_appdir}/gui/about_ui.py[co]
 %{_appdir}/gui/chooseLanguage_ui.py[co]
-%{_appdir}/gui/expiration_ui.py[co]
+#%{_appdir}/gui/expiration_ui.py[co]
 %{_appdir}/gui/images_rc.py[co]
 %{_appdir}/gui/imdb_ui.py[co]
 %{_appdir}/gui/login_ui.py[co]

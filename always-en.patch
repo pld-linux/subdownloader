@@ -1,11 +1,11 @@
---- subdownloader-2.0.14/gui/main.py~	2010-09-14 01:03:05.000000000 +0300
-+++ subdownloader-2.0.14/gui/main.py	2011-12-18 18:21:12.094644283 +0200
-@@ -309,6 +309,8 @@
-                 if 'subdownloader.mo' in files:
-                         self.interface_langs.append(_lang)
+--- subdownloader-2.0.19/gui/main.py~	2017-02-13 20:10:12.000000000 +0200
++++ subdownloader-2.0.19/gui/main.py	2018-02-04 13:09:27.174853433 +0200
+@@ -371,6 +371,8 @@
+             if 'subdownloader.mo' in files:
+                 self.interface_langs.append(_lang)
  
-+        #Always add english
++        # Always add english
 +        self.interface_langs.append('en')
-         log.debug('Found these translations languages: %r' % self.interface_langs)
+         log.debug('Found these translations languages: %r' %
+                   self.interface_langs)
  
-         #Check the system default locale
