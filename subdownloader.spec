@@ -82,7 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %py3_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/tests
-cp -p subdownloader.1 $RPM_BUILD_ROOT%{_mandir}/man1
+# manual was removed in https://github.com/subdownloader/subdownloader/commit/ccdc6552261060c
+#cp -p subdownloader.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
