@@ -1,24 +1,19 @@
-%global commit 2.1.0-rc2
 %define		module		subdownloader
 %define		egg_name	SubDownloader
 Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.1.0
-Release:	0.2
+Release:	0.1
 License:	GPL v3
 Group:		X11/Applications/Multimedia
-#Source0:	https://launchpad.net/subdownloader/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
-Source0:	https://github.com/subdownloader/subdownloader/archive/%{commit}/%{name}-%{commit}.tar.gz
-# Source0-md5:	35c195c0bf8d621e2f1396006ad2dae1
+Source0:	https://github.com/subdownloader/subdownloader/archive/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	2ee94f8cb2fd1d8eb8742122273e0ae9
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 # Source2-md5:	de3d0cfa08b1572878cde6e3800205fa
 Source3:	%{name}.sh
 # site down, and was not in distfiles
-#Source:	http://starowa.one.pl/~uzi/pld/%{name}-locale-pl.tar.gz
-Patch0:		always-en.patch
-Patch1:		egginfo.patch
 URL:		http://www.subdownloader.net/
 BuildRequires:	python3 >= 1:3.4
 BuildRequires:	python3-PyQt5
@@ -62,17 +57,9 @@ Cechy:
 - i wiele więcej
 
 %prep
-%setup -qc
-mv subdownloader-%{commit}*/* .
-#%patch0 -p1
-%patch1 -p1
-
-#tar xzf %{SOURCE3}
+%setup -q
 
 %{__rm} scripts/gui/rc/images/icon32.ico
-
-# cleanup backups after patching
-find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
 %build
 %py3_build
