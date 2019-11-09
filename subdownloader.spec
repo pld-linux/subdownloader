@@ -1,10 +1,9 @@
 %define		module		subdownloader
-%define		egg_name	SubDownloader
 Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.1.0
-Release:	0.1
+Release:	1
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/subdownloader/subdownloader/archive/%{version}/%{name}-%{version}.tar.gz
@@ -68,7 +67,6 @@ Cechy:
 rm -rf $RPM_BUILD_ROOT
 %py3_install
 
-%{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/tests
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 # manual was removed in https://github.com/subdownloader/subdownloader/commit/ccdc6552261060c
 #cp -p subdownloader.1 $RPM_BUILD_ROOT%{_mandir}/man1
@@ -77,8 +75,6 @@ cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/subdownloader/client/locale/subdownloader.pot
 %{__rm} $RPM_BUILD_ROOT%{py3_sitescriptdir}/subdownloader/client/locale/*/subdownloader.po
-
-%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -89,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %update_desktop_database
 
-%files -f %{name}.lang
+%files
 %defattr(644,root,root,755)
 %doc ChangeLog README.md
 %attr(755,root,root) %{_bindir}/%{name}
@@ -111,4 +107,4 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitescriptdir}/%{module}/client/modules
 %{py3_sitescriptdir}/%{module}/languages
 %{py3_sitescriptdir}/%{module}/provider
-%{py3_sitescriptdir}/%{egg_name}-%{version}*-py*.egg-info
+%{py3_sitescriptdir}/%{module}-%{version}*-py*.egg-info
