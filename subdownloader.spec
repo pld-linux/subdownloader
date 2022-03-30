@@ -3,7 +3,7 @@ Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.1.0
-Release:	3
+Release:	4
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/subdownloader/subdownloader/archive/%{version}/%{name}-%{version}.tar.gz
