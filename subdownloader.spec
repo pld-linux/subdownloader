@@ -3,7 +3,7 @@ Summary:	Fast and Easy Subtitle Downloader
 Summary(pl.UTF-8):	Narzędzie do automatycznego ściągania/wysyłania podpisów do plików wideo
 Name:		subdownloader
 Version:	2.1.0
-Release:	6
+Release:	7
 License:	GPL v3
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/subdownloader/subdownloader/archive/%{version}/%{name}-%{version}.tar.gz
@@ -12,12 +12,15 @@ Source1:	%{name}.desktop
 Source2:	%{name}.png
 # Source2-md5:	de3d0cfa08b1572878cde6e3800205fa
 Source3:	%{name}.sh
+Patch0:		no-sphinx-deprecated.patch
+Patch1:		fix-python_requires-syntax.patch
 # site down, and was not in distfiles
 URL:		http://www.subdownloader.net/
 BuildRequires:	python3 >= 1:3.4
 BuildRequires:	python3-PyQt5
 #BuildRequires:	python3-PyQt5-devel-tools
 BuildRequires:	python3-PyQt5-uic
+BuildRequires:	python3-sphinx_argparse
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 Requires:	desktop-file-utils
@@ -57,11 +60,15 @@ Cechy:
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
 
 %{__rm} scripts/gui/rc/images/icon32.ico
 
 %build
 %py3_build
+
+PYTHONPATH="$PWD" sphinx-build-3 doc build-3/doc
 
 %install
 rm -rf $RPM_BUILD_ROOT

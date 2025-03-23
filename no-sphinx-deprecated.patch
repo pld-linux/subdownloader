@@ -1,0 +1,28 @@
+--- subdownloader-2.1.0/setup.py~	2019-10-17 23:55:08.000000000 +0200
++++ subdownloader-2.1.0/setup.py	2025-03-23 14:03:54.229982878 +0100
+@@ -8,8 +8,6 @@
+ import sys
+ from setuptools import find_packages, setup
+ 
+-from sphinx.setup_command import BuildDoc
+-
+ gettext.NullTranslations().install()
+ 
+ import subdownloader.project
+@@ -83,16 +81,4 @@
+         ],
+     },
+     include_package_data=True,
+-    cmdclass={
+-        'build_sphinx': BuildDoc,
+-    },
+-    command_options={
+-        'build_sphinx': {
+-            'project': ('setup.py', subdownloader.project.PROJECT_TITLE, ),
+-            'version': ('setup.py', subdownloader.project.PROJECT_VERSION_STR, ),
+-            'release': ('setup.py', subdownloader.project.PROJECT_VERSION_FULL_STR, ),
+-            'builder': ('setup.py', 'man', ),
+-            'source_dir': ('setup.py', 'doc', ),
+-        },
+-    },
+ )
